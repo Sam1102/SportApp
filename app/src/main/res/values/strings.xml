@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">SportApp</string>
+    <string name="level">level</string>
+    <string name="purpose">purpose</string>
+    <string name="gender">gender</string>
+</resources>

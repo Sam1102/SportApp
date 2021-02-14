@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightBlack"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".PagesPackage.LoginActivity">
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:text="Login"
-        android:textColor="@color/purple_700"
+        android:textColor="@color/gray"
         android:textSize="35sp" />
 
     <EditText
@@ -24,7 +25,8 @@
         android:layout_marginEnd="20dp"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:textColor="@color/purple_700" />
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray" />
 
     <EditText
         android:id="@+id/password"
@@ -35,7 +37,8 @@
         android:layout_marginEnd="20dp"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColor="@color/purple_700" />
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray" />
 
     <TextView
         android:id="@+id/tvRegister"
@@ -43,12 +46,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Don't have an account?"
-        android:textColor="@color/purple_700" />
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="175dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
+        android:background="@color/gray"
         android:text="Login" />
 </LinearLayout>

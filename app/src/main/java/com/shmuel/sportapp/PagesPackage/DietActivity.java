@@ -1,18 +1,15 @@
 package com.shmuel.sportapp.PagesPackage;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.shmuel.sportapp.R;
 
 public class DietActivity extends AppCompatActivity {
 
-    private TextView tvMb, tvProtein, tvFat, tvCarbs, eggsG, cerealG, almondG, riceG, chickenG, cashewG, tunaG, pastaG, oliveOilG;
+    private TextView eggsG, cerealG, almondG, riceG, chickenG, cashewG, tunaG, pastaG, oliveOilG;
     private int mb, protein, fat, carbs;
 
     @Override
@@ -29,10 +26,6 @@ public class DietActivity extends AppCompatActivity {
         fat = getIntent().getIntExtra("fat", 0);
         carbs = getIntent().getIntExtra("carbs", 0);
 
-        tvMb = findViewById(R.id.tvMb);
-        tvProtein = findViewById(R.id.tvProtein);
-        tvFat = findViewById(R.id.tvFat);
-        tvCarbs = findViewById(R.id.tvCarbs);
         eggsG = findViewById(R.id.eggsG);
         cerealG = findViewById(R.id.cerealG);
         almondG = findViewById(R.id.almondG);
@@ -42,22 +35,6 @@ public class DietActivity extends AppCompatActivity {
         tunaG = findViewById(R.id.tunaG);
         pastaG = findViewById(R.id.pastaG);
         oliveOilG = findViewById(R.id.oliveOilG);
-
-        Spannable wordToSpanMb = new SpannableString("You need to eat\n" + mb + " Calories");
-        wordToSpanMb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple_700)), 16, 16 + String.valueOf(mb).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tvMb.setText(wordToSpanMb);
-
-        Spannable wordToSpanProtein = new SpannableString(protein + "\nProtein");
-        wordToSpanProtein.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple_700)), 0, String.valueOf(protein).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tvProtein.setText(wordToSpanProtein);
-
-        Spannable wordToSpanFat = new SpannableString(fat + "\nFat");
-        wordToSpanFat.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple_700)), 0, String.valueOf(fat).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tvFat.setText(wordToSpanFat);
-
-        Spannable wordToSpanCarbs = new SpannableString(carbs + "\nCarbs");
-        wordToSpanCarbs.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple_700)), 0, String.valueOf(carbs).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tvCarbs.setText(wordToSpanCarbs);
 
         int proteinD3 = protein / 3, fatD3 = fat / 3, carbsD3 = carbs / 3;
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightBlack"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".PagesPackage.TrainingsExerciseExplanationActivity">
@@ -19,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="17sp" />
 
     <Button
@@ -27,8 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Click Here"
         android:layout_marginTop="10dp"
-        android:textColor="@color/colorLightBlue"
+        android:background="@color/gray"
+        android:text="Click Here"
+        android:textColor="@color/black"
         android:textSize="17sp" />
 </LinearLayout>

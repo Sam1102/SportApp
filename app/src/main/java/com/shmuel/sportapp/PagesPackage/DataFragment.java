@@ -2,6 +2,9 @@ package com.shmuel.sportapp.PagesPackage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,9 +38,9 @@ public class DataFragment extends Fragment implements View.OnClickListener {
     private FirebaseAuth mAuth;
     private FirebaseUser currentFirebaseUser;
     private double mb, protein, fat, carbs;
-    private Button btnDiet, btnTrainings, btnChat;
+    private Button btnDiet, btnTrainings;
     private String level, purpose;
-    private TextView tvUser;
+    private TextView tvUser, tvMb, tvProtein, tvFat, tvCarbs;
     private ImageView ivLogout;
     private MCalendarView calendarView;
     private View mView;
@@ -64,9 +67,12 @@ public class DataFragment extends Fragment implements View.OnClickListener {
         calendarView = mView.findViewById(R.id.calendar);
         btnDiet = mView.findViewById(R.id.btnDiet);
         btnTrainings = mView.findViewById(R.id.btnTrainings);
-        btnChat = mView.findViewById(R.id.btnChat);
         tvUser = mView.findViewById(R.id.tvUser);
         ivLogout = mView.findViewById(R.id.ivLogout);
+        tvMb = mView.findViewById(R.id.tvMb);
+        tvProtein = mView.findViewById(R.id.tvProtein);
+        tvFat = mView.findViewById(R.id.tvFat);
+        tvCarbs = mView.findViewById(R.id.tvCarbs);
 
         mAuth = FirebaseAuth.getInstance();
         fireStoreDB = FirebaseFirestore.getInstance();
@@ -76,7 +82,6 @@ public class DataFragment extends Fragment implements View.OnClickListener {
     private void initListeners() {
         btnDiet.setOnClickListener(this);
         btnTrainings.setOnClickListener(this);
-        btnChat.setOnClickListener(this);
         ivLogout.setOnClickListener(this);
     }
 
@@ -92,7 +97,6 @@ public class DataFragment extends Fragment implements View.OnClickListener {
 
                     btnDiet.setVisibility(View.VISIBLE);
                     btnTrainings.setVisibility(View.VISIBLE);
-                    btnChat.setVisibility(View.VISIBLE);
 
                     if (document.getString("gender").equals("Man")) {
                         mb = 13.707 * Double.parseDouble(document.getString("weight")) + 492.3 *
@@ -126,6 +130,26 @@ public class DataFragment extends Fragment implements View.OnClickListener {
                     carbs = (mb - (protein * 4 + (int) fat * 9)) / 4;
 
                     Log.i("check1", "carbs: " + (int) carbs);
+
+                    int mbInt = (int) mb;
+                    Spannable wordToSpanMb = new SpannableString("You need to eat\n" + mbInt + " Calories");
+                    wordToSpanMb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.gray)), 16, 16 + String.valueOf(mbInt).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    tvMb.setText(wordToSpanMb);
+
+                    int proteinInt = (int) protein;
+                    Spannable wordToSpanProtein = new SpannableString(proteinInt + "\nProtein");
+                    wordToSpanProtein.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.gray)), 0, String.valueOf(proteinInt).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    tvProtein.setText(wordToSpanProtein);
+
+                    int fatInt = (int) fat;
+                    Spannable wordToSpanFat = new SpannableString(fatInt + "\nFat");
+                    wordToSpanFat.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.gray)), 0, String.valueOf(fatInt).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    tvFat.setText(wordToSpanFat);
+
+                    int carbsInt = (int) carbs;
+                    Spannable wordToSpanCarbs = new SpannableString(carbsInt + "\nCarbs");
+                    wordToSpanCarbs.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.gray)), 0, String.valueOf(carbsInt).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    tvCarbs.setText(wordToSpanCarbs);
 
                     List<String> arrayCalendar = (List<String>) document.get("calendar");
                     ArrayList<DateData> dates = new ArrayList<>();
@@ -180,10 +204,6 @@ public class DataFragment extends Fragment implements View.OnClickListener {
                 intentTrainings.putExtra("level", level);
                 intentTrainings.putExtra("purpose", purpose);
                 startActivity(intentTrainings);
-                break;
-            case R.id.btnChat:
-                Intent intentChat = new Intent(mView.getContext(), ChatFragment.class);
-                startActivity(intentChat);
                 break;
             case R.id.ivLogout:
                 mAuth.signOut();

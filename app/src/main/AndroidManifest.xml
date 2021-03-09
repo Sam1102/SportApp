@@ -20,12 +20,10 @@
         </activity>
         <activity android:name=".PagesPackage.RegisterActivity" />
         <activity android:name=".PagesPackage.InformationActivity" />
-        <activity android:name=".PagesPackage.DataFragment" />
         <activity android:name=".PagesPackage.DietActivity" />
         <activity android:name=".PagesPackage.TrainingsDaysActivity" />
         <activity android:name=".PagesPackage.TrainingsExercisesActivity" />
         <activity android:name=".PagesPackage.TrainingsExerciseExplanationActivity" />
-        <activity android:name=".PagesPackage.ChatFragment" />
         <activity android:name=".PagesPackage.MainActivity" />
     </application>
 

@@ -21,15 +21,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.shmuel.sportapp.R;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import sun.bob.mcalendarview.MCalendarView;
-import sun.bob.mcalendarview.listeners.OnDateClickListener;
-import sun.bob.mcalendarview.vo.DateData;
-
 public class DataFragment extends Fragment implements View.OnClickListener {
 
     private FirebaseFirestore fireStoreDB;
@@ -84,7 +75,8 @@ public class DataFragment extends Fragment implements View.OnClickListener {
     }
 
     private void readData() {
-        fireStoreListener = fireStoreDB.collection("trainings").document(currentFirebaseUser.getEmail())
+        fireStoreListener = fireStoreDB.collection("trainings")
+                .document(currentFirebaseUser.getEmail())
                 .addSnapshotListener((document, e) -> {
                     if (e != null) {
                         Toast.makeText(mView.getContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -148,17 +140,6 @@ public class DataFragment extends Fragment implements View.OnClickListener {
                     Spannable wordToSpanCarbs = new SpannableString(carbsInt + "\nCarbs");
                     wordToSpanCarbs.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.gray)), 0, String.valueOf(carbsInt).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     tvCarbs.setText(wordToSpanCarbs);
-
-                    List<String> arrayCalendar = (List<String>) document.get("calendar");
-                    ArrayList<DateData> dates = new ArrayList<>();
-
-                    if (arrayCalendar != null) {
-                        for (int i = 0; i < arrayCalendar.size(); i++) {
-                            String currentString = arrayCalendar.get(i);
-                            String[] separated = currentString.split("/");
-                            dates.add(new DateData(Integer.parseInt(separated[0]), Integer.parseInt(separated[1]), Integer.parseInt(separated[2])));
-                        }
-                    }
                 });
     }
 

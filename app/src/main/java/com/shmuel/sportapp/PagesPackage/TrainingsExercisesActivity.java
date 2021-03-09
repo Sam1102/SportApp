@@ -35,7 +35,6 @@ public class TrainingsExercisesActivity extends AppCompatActivity {
 
         rv = findViewById(R.id.rv);
 
-        rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         if (itemDecoration == null) {
             itemDecoration = new ItemDecoration(50);

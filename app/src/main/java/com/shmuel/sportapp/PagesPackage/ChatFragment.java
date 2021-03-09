@@ -77,7 +77,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     }
 
     private void listenForChatMessages() {
-        chatRegistration = firestore.collection("messages").limit(50)
+        chatRegistration = firestore.collection("messages")
+                .limit(50)
                 .addSnapshotListener((documentSnapshots, e) -> {
                     if (e != null) {
                         Toast.makeText(mView.getContext(), "Error: " + e, Toast.LENGTH_LONG).show();

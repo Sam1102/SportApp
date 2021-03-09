@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showUI() {
-        tabLayout.addTab(tabLayout.newTab().setText("Data"));
+        tabLayout.addTab(tabLayout.newTab().setText("Your Profile"));
         tabLayout.addTab(tabLayout.newTab().setText("Chat"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,22 +22,22 @@ public class CustomAdapterTrainings extends RecyclerView.Adapter<CustomAdapterTr
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView textName;
+        private final ImageView ivTraining;
         private final LinearLayout linearLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textName = itemView.findViewById(R.id.textName);
+            ivTraining = itemView.findViewById(R.id.ivTraining);
             linearLayout = itemView.findViewById(R.id.linearLayout);
         }
     }
 
-    private final List<String> list_data;
+    private final List<Integer> list_data;
     private final String type;
     private final LayoutInflater mInflater;
 
-    public CustomAdapterTrainings(List<String> list_data, String type, Context context) {
+    public CustomAdapterTrainings(List<Integer> list_data, String type, Context context) {
         this.list_data = list_data;
         this.type = type;
         mInflater = LayoutInflater.from(context);
@@ -50,9 +51,9 @@ public class CustomAdapterTrainings extends RecyclerView.Adapter<CustomAdapterTr
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        final String listData = list_data.get(position);
-        holder.textName.setText(listData);
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        int listData = list_data.get(position);
+        holder.ivTraining.setImageResource(listData);
         holder.linearLayout.setOnClickListener(v -> {
             if (type.equals("Days")) {
                 Intent intent = new Intent(mInflater.getContext(), TrainingsExercisesActivity.class);

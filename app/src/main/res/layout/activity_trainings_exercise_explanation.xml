@@ -30,7 +30,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@color/gray"
-        android:text="Click Here"
+        android:text="More information about the exercise"
         android:textColor="@color/black"
         android:textSize="17sp" />
 </LinearLayout>

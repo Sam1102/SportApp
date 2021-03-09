@@ -132,7 +132,7 @@ public class DataFragment extends Fragment implements View.OnClickListener {
                     Log.i("check1", "carbs: " + (int) carbs);
 
                     int mbInt = (int) mb;
-                    Spannable wordToSpanMb = new SpannableString("You need to eat\n" + mbInt + " Calories");
+                    Spannable wordToSpanMb = new SpannableString("Today you need to eat\n" + mbInt + " Calories");
                     wordToSpanMb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.gray)), 16, 16 + String.valueOf(mbInt).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     tvMb.setText(wordToSpanMb);
 

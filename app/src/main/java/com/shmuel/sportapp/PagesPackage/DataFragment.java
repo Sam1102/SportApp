@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,11 +37,9 @@ public class DataFragment extends Fragment implements View.OnClickListener {
     private FirebaseAuth mAuth;
     private FirebaseUser currentFirebaseUser;
     private double mb, protein, fat, carbs;
-    private Button btnDiet, btnTrainings;
     private String level, purpose;
     private TextView tvUser, tvMb, tvProtein, tvFat, tvCarbs;
-    private ImageView ivLogout;
-    private MCalendarView calendarView;
+    private ImageView ivLogout, ivDiet, ivTrainings;
     private View mView;
 
     @Override
@@ -64,9 +61,8 @@ public class DataFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUI() {
-        calendarView = mView.findViewById(R.id.calendar);
-        btnDiet = mView.findViewById(R.id.btnDiet);
-        btnTrainings = mView.findViewById(R.id.btnTrainings);
+        ivDiet = mView.findViewById(R.id.ivDiet);
+        ivTrainings = mView.findViewById(R.id.ivTrainings);
         tvUser = mView.findViewById(R.id.tvUser);
         ivLogout = mView.findViewById(R.id.ivLogout);
         tvMb = mView.findViewById(R.id.tvMb);
@@ -80,8 +76,8 @@ public class DataFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initListeners() {
-        btnDiet.setOnClickListener(this);
-        btnTrainings.setOnClickListener(this);
+        ivDiet.setOnClickListener(this);
+        ivTrainings.setOnClickListener(this);
         ivLogout.setOnClickListener(this);
     }
 
@@ -95,8 +91,8 @@ public class DataFragment extends Fragment implements View.OnClickListener {
 
                     tvUser.setText("Welcome " + document.getString("firstName") + " " + document.getString("lastName"));
 
-                    btnDiet.setVisibility(View.VISIBLE);
-                    btnTrainings.setVisibility(View.VISIBLE);
+                    ivDiet.setVisibility(View.VISIBLE);
+                    ivTrainings.setVisibility(View.VISIBLE);
 
                     if (document.getString("gender").equals("Man")) {
                         mb = 13.707 * Double.parseDouble(document.getString("weight")) + 492.3 *
@@ -161,37 +157,13 @@ public class DataFragment extends Fragment implements View.OnClickListener {
                             dates.add(new DateData(Integer.parseInt(separated[0]), Integer.parseInt(separated[1]), Integer.parseInt(separated[2])));
                         }
                     }
-
-                    calendarView.setOnDateClickListener(new OnDateClickListener() {
-                        @Override
-                        public void onDateClick(View view, DateData date) {
-                            assert arrayCalendar != null;
-                            arrayCalendar.add(date.getYear() + "/" + date.getMonth() + "/" + date.getDay());
-
-                            Log.i("check1", date.getYear() + "/" + date.getMonth() + "/" + date.getDay());
-
-                            Map<String, Object> user = new HashMap<>();
-                            user.put("calendar", arrayCalendar);
-
-                            fireStoreDB.collection("trainings")
-                                    .document(currentFirebaseUser.getEmail())
-                                    .update(user)
-                                    .addOnSuccessListener(aVoid -> {
-                                    })
-                                    .addOnFailureListener(e -> Toast.makeText(mView.getContext(), "Error: " + e, Toast.LENGTH_LONG).show());
-                        }
-                    });
-
-                    for (int i = 0; i < dates.size(); i++) {
-                        calendarView.markDate(dates.get(i).getYear(), dates.get(i).getMonth(), dates.get(i).getDay());
-                    }
                 });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnDiet:
+            case R.id.ivDiet:
                 Intent intentDiet = new Intent(mView.getContext(), DietActivity.class);
                 intentDiet.putExtra("mb", (int) mb);
                 intentDiet.putExtra("protein", (int) protein);
@@ -199,7 +171,7 @@ public class DataFragment extends Fragment implements View.OnClickListener {
                 intentDiet.putExtra("carbs", (int) carbs);
                 startActivity(intentDiet);
                 break;
-            case R.id.btnTrainings:
+            case R.id.ivTrainings:
                 Intent intentTrainings = new Intent(mView.getContext(), TrainingsDaysActivity.class);
                 intentTrainings.putExtra("level", level);
                 intentTrainings.putExtra("purpose", purpose);

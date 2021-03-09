@@ -97,6 +97,14 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/training" />
+
+            <ImageView
+                android:id="@+id/ivInformation"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/training" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

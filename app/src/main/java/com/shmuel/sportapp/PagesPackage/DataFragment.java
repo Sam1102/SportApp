@@ -39,7 +39,7 @@ public class DataFragment extends Fragment implements View.OnClickListener {
     private double mb, protein, fat, carbs;
     private String level, purpose;
     private TextView tvUser, tvMb, tvProtein, tvFat, tvCarbs;
-    private ImageView ivLogout, ivDiet, ivTrainings;
+    private ImageView ivLogout, ivDiet, ivTrainings, ivInformation;
     private View mView;
 
     @Override
@@ -63,6 +63,7 @@ public class DataFragment extends Fragment implements View.OnClickListener {
     private void initUI() {
         ivDiet = mView.findViewById(R.id.ivDiet);
         ivTrainings = mView.findViewById(R.id.ivTrainings);
+        ivInformation = mView.findViewById(R.id.ivInformation);
         tvUser = mView.findViewById(R.id.tvUser);
         ivLogout = mView.findViewById(R.id.ivLogout);
         tvMb = mView.findViewById(R.id.tvMb);
@@ -78,6 +79,7 @@ public class DataFragment extends Fragment implements View.OnClickListener {
     private void initListeners() {
         ivDiet.setOnClickListener(this);
         ivTrainings.setOnClickListener(this);
+        ivInformation.setOnClickListener(this);
         ivLogout.setOnClickListener(this);
     }
 
@@ -176,6 +178,11 @@ public class DataFragment extends Fragment implements View.OnClickListener {
                 intentTrainings.putExtra("level", level);
                 intentTrainings.putExtra("purpose", purpose);
                 startActivity(intentTrainings);
+                break;
+            case R.id.ivInformation:
+                Intent intentInformation = new Intent(mView.getContext(), InformationActivity.class);
+                intentInformation.putExtra("isAfterLogin", false);
+                startActivity(intentInformation);
                 break;
             case R.id.ivLogout:
                 mAuth.signOut();

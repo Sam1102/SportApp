@@ -15,22 +15,20 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnDiet1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/ivDiet1"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            android:background="@color/gray"
-            android:text="Diet1" />
+            android:src="@drawable/diet" />
 
-        <Button
-            android:id="@+id/btnDiet2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/ivDiet2"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:background="@color/gray"
-            android:text="Diet2" />
+            android:layout_marginTop="20dp"
+            android:src="@drawable/training" />
 
         <LinearLayout
             android:id="@+id/llDiet1"

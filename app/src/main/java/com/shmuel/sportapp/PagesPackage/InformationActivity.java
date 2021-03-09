@@ -31,6 +31,7 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
     private final String[] purpose_arrays = {"Weight loss", "Getting in shape", "Taking muscle"};
     private FirebaseFirestore fireStoreDB;
     private FirebaseUser currentFirebaseUser;
+    private boolean isAfterLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initUI() {
+        isAfterLogin = getIntent().getBooleanExtra("isAfterLogin", true);
+
         spinnerGender = findViewById(R.id.spinnerGender);
         spinnerLevel = findViewById(R.id.spinnerLevel);
         spinnerPurpose = findViewById(R.id.spinnerPurpose);
@@ -56,11 +59,52 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
         fireStoreDB = FirebaseFirestore.getInstance();
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        checkFullData();
+        if (isAfterLogin) {
+            checkFullData();
+        } else {
+            readDataNotAfterLogin();
+        }
     }
 
     private void initListeners() {
         btnSave.setOnClickListener(this);
+    }
+
+    private void readDataNotAfterLogin() {
+        fireStoreDB.collection("trainings")
+                .document(currentFirebaseUser.getEmail())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            firstName.setText(document.getString("firstName"));
+                            lastName.setText(document.getString("lastName"));
+                            age.setText(document.getString("age"));
+                            weight.setText(document.getString("weight"));
+                            height.setText(document.getString("height"));
+
+                            createSpinner(new String[]{document.getString("gender")}, spinnerGender);
+                            createSpinner(new String[]{document.getString("level")}, spinnerLevel);
+                            createSpinner(new String[]{document.getString("purpose")}, spinnerPurpose);
+                        }
+                    }
+                });
+
+        spinnerGender.setOnTouchListener((v, event) -> {
+            createSpinner(gender_arrays, spinnerGender);
+            return false;
+        });
+
+        spinnerLevel.setOnTouchListener((v, event) -> {
+            createSpinner(level_arrays, spinnerLevel);
+            return false;
+        });
+
+        spinnerPurpose.setOnTouchListener((v, event) -> {
+            createSpinner(purpose_arrays, spinnerPurpose);
+            return false;
+        });
     }
 
     private void initSpinner() {
@@ -71,7 +115,7 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
 
     private void createSpinner(String[] strings, Spinner spinner) {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, strings);
-        arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item); // The drop down view
+        arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
     }
 
@@ -130,7 +174,8 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void checkFullData() {
-        DocumentReference docIdRef = fireStoreDB.collection("trainings").document(currentFirebaseUser.getEmail());
+        DocumentReference docIdRef = fireStoreDB.collection("trainings")
+                .document(currentFirebaseUser.getEmail());
         docIdRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();

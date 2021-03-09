@@ -2,7 +2,7 @@ package com.shmuel.sportapp.PagesPackage;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,7 +14,7 @@ public class DietActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView eggsG, cerealG, almondG, riceG, chickenG, cashewG, tunaG, pastaG, oliveOilG;
     private int mb, protein, fat, carbs;
-    private Button btnDiet1, btnDiet2;
+    private ImageView ivDiet1, ivDiet2;
     private LinearLayout llDiet1, llDiet2;
 
     @Override
@@ -32,8 +32,8 @@ public class DietActivity extends AppCompatActivity implements View.OnClickListe
         fat = getIntent().getIntExtra("fat", 0);
         carbs = getIntent().getIntExtra("carbs", 0);
 
-        btnDiet1 = findViewById(R.id.btnDiet1);
-        btnDiet2 = findViewById(R.id.btnDiet2);
+        ivDiet1 = findViewById(R.id.ivDiet1);
+        ivDiet2 = findViewById(R.id.ivDiet2);
         llDiet1 = findViewById(R.id.llDiet1);
         llDiet2 = findViewById(R.id.llDiet2);
         eggsG = findViewById(R.id.eggsG);
@@ -108,23 +108,23 @@ public class DietActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initListeners() {
-        btnDiet1.setOnClickListener(this);
-        btnDiet2.setOnClickListener(this);
+        ivDiet1.setOnClickListener(this);
+        ivDiet2.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnDiet1:
-                btnDiet1.setVisibility(View.GONE);
-                btnDiet2.setVisibility(View.GONE);
+            case R.id.ivDiet1:
+                ivDiet1.setVisibility(View.GONE);
+                ivDiet2.setVisibility(View.GONE);
                 llDiet1.setVisibility(View.VISIBLE);
 
                 setDataDiet1();
                 break;
-            case R.id.btnDiet2:
-                btnDiet1.setVisibility(View.GONE);
-                btnDiet2.setVisibility(View.GONE);
+            case R.id.ivDiet2:
+                ivDiet1.setVisibility(View.GONE);
+                ivDiet2.setVisibility(View.GONE);
                 llDiet2.setVisibility(View.VISIBLE);
 
                 setDataDiet2();
